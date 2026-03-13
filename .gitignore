@@ -1,0 +1,13 @@
+# Medii virtuale
+.venv/
+venv/
+env/
+
+# Cache Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Fisiere specifice sistemului de operare
+.DS_Store
+Thumbs.db

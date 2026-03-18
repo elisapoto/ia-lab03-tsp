@@ -5,6 +5,7 @@ import time
 import sys
 from utils.io_utils import citeste_matrice, salveaza_rezultat
 from utils.backtracking import rezolva_tsp_backtracking
+from hill_climbing_tsp import rezolva_tsp_hc
 
 def main():
     """Parsează argumentele din consolă și orchestrează execuția algoritmului."""

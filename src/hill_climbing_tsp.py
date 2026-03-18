@@ -1,8 +1,8 @@
-# hill_climbing_tsp.py
+
 import random
 from simpleai.search import SearchProblem, hill_climbing_random_restarts
 
-# Clasa pentru modelarea problemei TSP pentru Hill Climbing
+
 class TSPHillClimbing(SearchProblem):
     def __init__(self, n, matrice):
         self.n = n                # numarul de orase

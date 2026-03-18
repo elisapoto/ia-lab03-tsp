@@ -38,27 +38,41 @@ def masoara_timpul(functie: Callable, *args) -> float:
     return time.perf_counter() - start
 
 def genereaza_grafic(n_bt, timpi_bt, n_hc, timpi_hc_simpleai, timpi_hc_manual):
-    """Desenează graficul comparativ cu 3 linii și îl salvează ca imagine."""
-    logging.info("Generez graficul...")
-    plt.figure(figsize=(10, 6))
+    """Generează un grafic cu două subploturi (liniar și logaritmic)."""
+    logging.info("Generez graficele comparativ...")
     
-    # Desenăm cele 3 linii
-    plt.plot(n_bt, timpi_bt, 'o-', color='red', label='Backtracking (Exact)', linewidth=2)
-    plt.plot(n_hc, timpi_hc_simpleai, 's-', color='blue', label='HC SimpleAI (Euristic)', linewidth=2)
-    plt.plot(n_hc, timpi_hc_manual, '^-', color='green', label='HC Manual (Euristic)', linewidth=2)
+    # Creăm o figură cu 2 subploturi (1 rând, 2 coloane)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+
+    # --- SUBPLOT 1: SCARĂ LINIARĂ ---
+    ax1.plot(n_bt, timpi_bt, 'o-', color='red', label='Backtracking', linewidth=2)
+    ax1.plot(n_hc, timpi_hc_simpleai, 's-', color='blue', label='HC SimpleAI', linewidth=2)
+    ax1.plot(n_hc, timpi_hc_manual, '^-', color='green', label='HC Manual', linewidth=2)
+    ax1.set_title("Scară Liniară (Timp Absolut)")
+    ax1.set_xlabel("Număr de orașe (N)")
+    ax1.set_ylabel("Secunde")
+    ax1.grid(True, linestyle='--')
+    ax1.legend()
+
+    # --- SUBPLOT 2: SCARĂ LOGARITMICĂ ---
+    ax2.plot(n_bt, timpi_bt, 'o-', color='red', label='Backtracking', linewidth=2)
+    ax2.plot(n_hc, timpi_hc_simpleai, 's-', color='blue', label='HC SimpleAI', linewidth=2)
+    ax2.plot(n_hc, timpi_hc_manual, '^-', color='green', label='HC Manual', linewidth=2)
     
-    # Setări vizuale
-    plt.title("Comparare Performanță Algoritmi TSP", fontsize=14)
-    plt.xlabel("Număr de orașe (N)", fontsize=12)
-    plt.ylabel("Timp de execuție (secunde)", fontsize=12)
-    plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(fontsize=11)
+    # Aceasta este linia magică cerută de laborator:
+    ax2.set_yscale('log') 
     
-    # Salvăm imaginea
-    nume_fisier = "grafic_comparativ_final.png"
-    plt.savefig(nume_fisier, dpi=300, bbox_inches='tight')
+    ax2.set_title("Scară Logaritmică (Semilogy)")
+    ax2.set_xlabel("Număr de orașe (N)")
+    ax2.set_ylabel("Secunde (log)")
+    ax2.grid(True, which="both", linestyle='--', alpha=0.5)
+    ax2.legend()
+
+    plt.tight_layout()
+    nume_fisier = "comparare_performanta.png"
+    plt.savefig(nume_fisier, dpi=300)
     plt.close()
-    logging.info(f"Graficul a fost salvat cu succes ca: {nume_fisier}")
+    logging.info(f"Graficul dublu a fost salvat ca: {nume_fisier}")
 
 
 def ruleaza_experiment():
